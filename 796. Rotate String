@@ -1,0 +1,15 @@
+class Solution:
+    def rotateString(self, A: str, B: str) -> bool:
+        if len(A)==len(B):
+            new = A
+            if A=="" and B=="":
+                return True
+            for i in range(len(A)):
+                if new == B:
+                    return True
+                else:
+                    new = new[1:len(new)]+new[0]
+            else:
+                return False
+        else:
+            return False
