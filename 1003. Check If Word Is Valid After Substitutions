@@ -1,0 +1,23 @@
+class Solution:
+    def isValid(self, s: str) -> bool:
+        new = ""
+        while 'abc' in s:
+            new = ""
+            flag = 0
+            for i in range(len(s)):
+                if flag != 0:
+                    flag-=1
+                    continue
+                try:
+                    if s[i]=="a" and s[i+1]=="b" and s[i+2]=="c":
+                        flag = 2
+                    else:
+                        new+=s[i]
+                except:
+                    new+=s[i]
+
+            s = new
+        if len(new) != 0:
+            return False
+        else:
+            return True
