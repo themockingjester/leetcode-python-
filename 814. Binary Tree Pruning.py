@@ -62,4 +62,39 @@ class Solution:
             return None
         else:
             return self.root
+     
+    
+
+    
+    
+    
+    
+    
+#                                            Another Approach
+
+
+
+
+
+
+
+class Solution:
+    def check(self,root):
+        if root:
             
+            if root.left:
+                root.left=self.check(root.left)
+            if root.right:
+                root.right=self.check(root.right)
+            if root.left==None and root.right==None:
+                if root.val==0:
+                    return None
+                else:
+                    return root
+            
+            else:
+                return root
+    def pruneTree(self, root: TreeNode) -> TreeNode:
+        
+        root=self.check(root)
+        return root
