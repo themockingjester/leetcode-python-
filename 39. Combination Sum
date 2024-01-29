@@ -1,0 +1,20 @@
+class Solution:
+    def __init__(self):
+        self.output=[]
+    def sol(self,i,arr,candidates,target):
+        myArr = arr.copy()
+        myArr.append(candidates[i])
+        if(sum(myArr)>target):
+            return
+        if(sum(myArr)==target):
+            self.output.append(myArr)
+            return
+        else:
+
+            for j in range(i,len(candidates)):
+                self.sol(j,myArr,candidates,target)
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        for i in range(len(candidates)):
+            self.sol(i,[],candidates,target)
+        return self.output
+        
