@@ -21,3 +21,30 @@ class Solution:
         self.res=[]
         self.solve(len(nums),[],0,sorted(nums))
         return self.res
+# wit pure recursion
+class Solution:
+    def __init__(self):
+        self.result=[]
+        self.found={}
+    def sol(self,index,currArr,nums,pattern):
+        copiedArr = currArr.copy()
+        if(pattern not in self.found):
+            self.result.append(copiedArr)
+
+        self.found[pattern]=True
+        if(index>=len(nums)):  
+            return
+        
+        # not pick
+        self.sol(index+1,copiedArr,nums,pattern)
+
+        #pick:
+        copiedArr.append(nums[index])
+        self.sol(index+1,copiedArr,nums,pattern+str(nums[index]))
+        copiedArr.pop()
+        
+    def subsetsWithDup(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        self.sol(0,[],nums,'')
+        print(self.found)
+        return self.result
