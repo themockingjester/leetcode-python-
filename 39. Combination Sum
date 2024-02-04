@@ -18,3 +18,37 @@ class Solution:
             self.sol(i,[],candidates,target)
         return self.output
         
+# Using Recursion and Pick not Pick Approach
+class Solution:
+    def __init__(self):
+        self.found={}
+        self.result=[]
+    def sol(self,i,currArr,candidates,currSum,target,pattern):
+        copiedArr=currArr.copy()
+
+        if i >= len(candidates):
+            return
+        if currSum > target:
+            return
+        if currSum == target:
+            if pattern not in self.found:
+                self.found[pattern]=True
+                self.result.append(copiedArr)
+            return
+        
+        copiedArr.append(candidates[i])
+        self.sol(i,copiedArr,candidates,currSum+candidates[i],target,pattern+str(candidates[i]))
+        copiedArr.pop()
+        if i == len(candidates)-1:
+            return
+        copiedArr.append(candidates[i+1])
+        self.sol(i+1,copiedArr,candidates,currSum+candidates[i+1],target,pattern+str(candidates[i+1]))
+        copiedArr.pop()
+        self.sol(i+1,copiedArr,candidates,currSum,target,pattern)
+
+
+
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        candidates.sort()
+        self.sol(0,[],candidates,0,target,'')
+        return self.result
