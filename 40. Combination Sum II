@@ -1,0 +1,32 @@
+# Using Recursion (Pick not pick Approach)
+class Solution:
+    def __init__(self):
+        self.found={}
+        self.result=[]
+    def sol(self,i,currArr,candidates,currSum,target,pattern):
+        copiedArr=currArr.copy()
+
+        if currSum == target:
+            if pattern not in self.found:
+                self.found[pattern]=True
+                self.result.append(copiedArr)
+            return
+        
+        if i >= len(candidates):
+            return
+        if currSum > target or candidates[i]>target:
+            return
+        copiedArr.append(candidates[i])
+        self.sol(i+1,copiedArr,candidates,currSum+candidates[i],target,pattern+str(candidates[i]))
+        copiedArr.pop()
+        while (i+1<=len(candidates)-1 and candidates[i]==candidates[i+1]):
+            i+=1
+        self.sol(i+1,copiedArr,candidates,currSum,target,pattern)
+
+
+
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        candidates.sort()
+        
+        self.sol(0,[],candidates,0,target,'')
+        return self.result
