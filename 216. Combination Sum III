@@ -1,0 +1,32 @@
+# Using recursion (pick not pick approach)
+
+class Solution:
+    def __init__(self):
+        self.output=[]
+        self.patterns={}
+    def sol(self,i,currArr,allArr,k,n,currSum,pattern):
+        print(currArr)
+        copiedArr = currArr.copy()
+        if len(copiedArr)>k:
+            return
+        if currSum>n:
+            return
+        if currSum == n and len(copiedArr)==k:
+            if(pattern not in self.patterns):
+                self.patterns[pattern]=True
+            else:
+                return
+            self.output.append(copiedArr)
+            return
+        if i> len(allArr)-1:
+            return
+        self.sol(i+1,copiedArr,allArr,k,n,currSum,pattern)
+        if allArr[i]<=9 and allArr[i]>=1:
+            copiedArr.append(allArr[i])
+            self.sol(i+1,copiedArr,allArr,k,n,currSum+allArr[i],pattern+str(allArr[i]))
+            copiedArr.pop()
+
+    def combinationSum3(self, k: int, n: int) -> List[List[int]]:
+        lis = [x for x in range(1,n)]
+        self.sol(0,[],lis,k,n,0,'')
+        return self.output
