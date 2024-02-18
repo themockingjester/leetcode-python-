@@ -1,0 +1,60 @@
+class Solution:
+    def __init__(self):
+        self.answerFound=False
+    def checkLeft(self,digit,cr,cc,n,board):
+        while True:
+            if cc<0:
+                break
+            if(board[cr][cc]==digit):
+                return False
+            cc-=1
+        return True
+    def checkRight(self,digit,cr,cc,n,board):
+        while True:
+            if cc>=n:
+                break
+            if(board[cr][cc]==digit):
+                return False
+            cc+=1
+        return True
+    def checkTop(self,digit,cr,cc,n,board):
+        while True:
+            if cr<0:
+                break
+            if(board[cr][cc]==digit):
+                return False
+            cr-=1
+        return True
+    def checkDown(self,digit,cr,cc,n,board):
+        while True:
+            if cr>=n:
+                break
+            if(board[cr][cc]==digit):
+                return False
+            cr+=1
+        return True
+    def checkSubCells(self,digit,cr,cc,n,board):
+        for i in range(9):
+            if (board[3*(cr//3)+i//3][3 * (cc//3) + i % 3] == str(digit)):
+                return False
+        return True
+    def solve(self,board,n):
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if(board[i][j]=="."):
+                    for k in range(1,10):
+                        if(self.answerFound):
+                            return
+                        if(self.checkSubCells(str(k),i,j,n,board) and self.checkLeft(str(k),i,j-1,n,board) and self.checkRight(str(k),i,j+1,n,board) and self.checkTop(str(k),i-1,j,n,board) and self.checkDown(str(k),i+1,j,n,board)):
+                            board[i][j] = str(k)
+                            out = self.solve(board,n)
+                            if out == True:
+                                return True
+                            board[i][j] = '.'
+                    return False
+        return True
+    def solveSudoku(self, board: List[List[str]]) -> None:
+        """
+        Do not return anything, modify board in-place instead.
+        """
+        self.solve(board,len(board))
