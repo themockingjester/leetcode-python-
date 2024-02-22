@@ -1,3 +1,39 @@
+
+from collections import deque
+
+class MyStack:
+
+    def __init__(self):
+        self.data=deque()
+    def push(self, x: int) -> None:
+        self.data.append(x)
+
+    def pop(self) -> int:
+        if len(self.data)>0:
+
+            obj = self.data.pop()
+            return obj
+
+    def top(self) -> int:
+        return self.data[-1]
+
+    def empty(self) -> bool:
+        if len(self.data)==0:
+            return True
+
+        return False
+
+
+
+# Your MyStack object will be instantiated and called as such:
+# obj = MyStack()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.top()
+# param_4 = obj.empty()
+
+
+# This code is not according to question , it shows implemenmtation of stacks from scratch
 class MyStack:
     class Node():
         def __init__(self):
