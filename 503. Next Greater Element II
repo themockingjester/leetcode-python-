@@ -1,0 +1,27 @@
+class Solution:
+    def nextGreaterElements(self, nums: List[int]) -> List[int]:
+
+        myStack = []
+        ngeArr=[]
+        n = len(nums)
+        for i in range(2*len(nums)-1,-1,-1):
+            curr = nums[i%n]
+            currAns = -1
+            while len(myStack)>0:
+                if myStack[-1]<=curr:
+                    myStack.pop()
+                else:
+                    currAns = myStack[-1]
+                    myStack.append(curr)
+                    break
+            else:
+                myStack.append(curr)
+            ngeArr.append(currAns)
+        ngeArr=ngeArr[::-1]
+        ngeArr = ngeArr[:n]
+        
+        return ngeArr
+            
+
+
+        
