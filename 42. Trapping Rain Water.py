@@ -1,3 +1,5 @@
+# Using two pointer approach
+
 class Solution:
     def trap(self, height: List[int]) -> int:
         if len(height)==0:
@@ -22,6 +24,29 @@ class Solution:
                     ans += height[rightmax]-height[end]
                 end-=1
         return ans
+# Using prefix Sum
+
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        prefixArr = []
+        prefixMax=0
+        for i in height:
+            if i>prefixMax:
+                prefixMax=i
+            prefixArr.append(prefixMax)
+        suffixArr = []
+        suffixMax=0
+        for i in range(len(height)-1,-1,-1):
+            if height[i]>suffixMax:
+                suffixMax=height[i]
+            suffixArr.append(suffixMax)
+        suffixArr=suffixArr[::-1]
+        totalWater=0
+        for i in range(len(height)):
+            totalWater+=min(prefixArr[i],suffixArr[i])- height[i]
+        return totalWater
+
+        
                 
 
                 
