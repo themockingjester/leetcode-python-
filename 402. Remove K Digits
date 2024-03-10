@@ -1,0 +1,75 @@
+class Solution:
+    def removeKdigits(self, num: str, k: int) -> str:
+        stack=[]
+        for i in range(len(num)):
+            # simply appending first elment into stack
+            if i ==0:
+                stack.append(int(num[i]))
+            else:
+                if len(stack)>0:
+                    # if current number is smaller than last elememnt of stack
+                    if int(num[i])<stack[-1]:
+                        # when we have rounds to remove numbers
+                        if k>0:
+                            while len(stack)>0 and k>0:
+                                # removing stack elements until we found last value of stack is smaller and k is still greater than 0 
+                                if int(num[i])<stack[-1]:
+                                    stack.pop()
+                                    k-=1
+                                else:
+                                    stack.append(int(num[i]))
+                                    break
+                            else:
+                                # now we can't remove the elements bcz either we ruin out of chances or stack is already empty
+                                stack.append(int(num[i]))
+                        else:
+                            # now we can't remove the elements bcz we ruin out of chances
+                            stack.append(int(num[i]))
+                    else:
+                        # no need to remove simply append
+                        stack.append(int(num[i]))
+                else:
+                    stack.append(int(num[i]))
+
+        out=""
+
+        # when we have given only single element and elements need to be removed are also 1
+        if k==1 and len(num)==1:
+            return "0"
+
+        # when we still have chances to remove elements then in that case we know our stack is sorted in ascending order then simply start removing end elements
+        if k!=0:
+            while k!=0:
+                if len(stack)>0:
+                    stack.pop()
+                else:
+                    break
+                k-=1
+
+        headingZerosFound=False
+        numAfterHeadingZeroStarted = False
+
+        newStack=[]
+        nonzerosStarted=False
+
+        # removing heading zeros
+        for i in stack:
+            if i ==0:
+                if nonzerosStarted==False:
+                    pass
+                else:
+                    newStack.append(i)
+            else:
+                nonzerosStarted=True
+                newStack.append(i)   
+        for i in newStack:
+
+            out+=str(i)
+
+            
+        if out=="":
+            return "0"
+        return out
+
+
+        
