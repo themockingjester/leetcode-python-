@@ -1,3 +1,31 @@
+
+# Bottom Up Approach
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def traverse(self,root):
+        if self.ans==False:
+            return 1
+        if root:
+            left = self.traverse(root.left)
+            right = self.traverse(root.right)
+            if abs(left-right)>1:
+                self.ans = False
+            return max(left,right)+1
+        else:
+            return 0
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        self.ans = True
+        data = self.traverse(root)
+        return self.ans
+        
+
+
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
