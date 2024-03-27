@@ -4,19 +4,25 @@
 #         self.val = x
 #         self.next = None
 
-class Solution:
-    def hasCycle(self, head: ListNode) -> bool:
-        if  head==None or head.next==None or head.next.next==None:
-            return False
-        curr=head
-        dito={}
-        while curr:
-            curr=curr.next
 
-            if curr in dito:
-                return True
-            else:
-                dito[curr]=1
-        return False
-            
+######################     With TWO Pointer Approach
+class Solution:
+    def hasCycle(self, head: Optional[ListNode]) -> bool:
+        p=head
+        q=head
         
+        while True:
+            if p == None:
+                return False
+            elif (p.next!=None and p.next.next!=None):
+                p=p.next.next
+            else:
+                return False
+            if q==None:
+                return False   
+            elif q.next!=None:
+                q=q.next
+            else:
+                return False
+            if p==q:
+                return True
